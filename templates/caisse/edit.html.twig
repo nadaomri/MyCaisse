@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Caisse{% endblock %}
+
+{% block body %}
+         <!-- As a link -->
+            <nav class="navbar navbar-light bg-light">
+              <div class="container-fluid">
+                <a class="navbar-brand" href="{{ path('app_caisse_index') }}">Back to list</a>
+              </div>
+            </nav>
+ <div class="container">
+      <div class="w-4/5 m-auto text-center">
+        <h1>Edit cash register</h1>
+      </div>
+ 
+        {{ include('caisse/_form.html.twig', {'button_label': 'Update'}) }}
+        <div class="col-12">
+      <a href="{{ path('app_caisse_index') }}" id="cancel" name="cancel" class="btn btn-danger">Cancel</a>
+    </div>
+</div>
+
+{% endblock %}

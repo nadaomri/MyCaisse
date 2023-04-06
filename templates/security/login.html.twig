@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+  <div class="container">
+   
+<form method="post">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+<div class="w-4/5 m-auto text-center">
+        {#<div class="mb-3">
+          <label for="exampleFormControlInput1" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+        </div>#}
+      
+      <h1 class="text-center">Please sign in</h1>
+ </div>
+        <label for="inputEmail" class="form-label">Email address</label>
+        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email"
+         placeholder="name@example.com"
+         required autofocus>
+    
+        <label for="inputPassword">Password</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+           <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}">
+
+        {#Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+        See https://symfony.com/doc/current/security/remember_me.html#}
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="_remember_me"> Remember me
+            </label>
+        </div>
+    
+    <button class="btn btn-lg btn-primary" type="submit">Sign in</button>
+     <footer>
+         <div class="w-4/5 m-auto text-center">
+            If you are not registred please <a href="/register">Register first</a> Or you log in as <a href="/admin">Admin</a>
+        </div>
+     </footer>
+
+  </form>
+    {#<div class="spinner-border text-success" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>#}
+
+    </div>
+{% endblock %}

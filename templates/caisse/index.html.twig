@@ -1,0 +1,92 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Cash register s index{% endblock %}
+
+{% block body %}
+              
+             
+
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Active</a>
+            </li>
+            </li>
+         <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="/dashboard">Home</a>
+         </li>
+            {#<li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dropdown</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Open as excel file</a></li>
+              <li><a class="dropdown-item" href="#">Download as pdf </a></li>
+              <li><hr class="dropdown-divider"></li>
+            </ul>#}
+        </ul>
+
+
+      <style>
+
+          /* Style the header */
+      header {
+        
+        padding: 30px;
+        text-align: center;
+        font-size: 35px;
+        color: green;
+      }
+          /*style of the table*/
+           table, th, td {
+           border: 1px solid black;
+           border-collapse: collapse;
+           margin: auto;
+         text-align: center;
+               }
+           th, td {
+          background-color: #96D4D4;
+               }
+        </style>
+
+        <header>
+          <div class="w-4/5 m-auto text-center">
+          <h1>Detailed Operations</h1>
+           </div>
+        </header>
+    <table class="table table-success table-striped" style="width:80%">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Amount</th>
+                <th>New account balance</th>
+                <th>Employee</th>
+                <th>Category</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for caisse in caisses %}
+            <tr>
+                <td>{{ caisse.id }}</td>
+                 <td>{{ caisse.montant }}</td>
+                <td>{{ caisse.balance }}</td>
+                <td>{{ caisse.employe }}</td>
+                <td>{{ caisse.category }}</td>
+                <td>{{ caisse.date ? caisse.date|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_caisse_show', {'id': caisse.id}) }}" class="link-success">show this specific cash register</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('app_caisse_delete', {'id': caisse.id}) }}" class="link-danger">delete this specific cash register</a>
+                    {% endif %}
+                    <a href="{{ path('app_caisse_edit', {'id' : caisse.id}) }}">Edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>    
+    <div class="p-3 mb-2 bg-light text-dark">{{knp_pagination_render(caisses)}}</div>
+{% endblock %}

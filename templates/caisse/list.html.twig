@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+{% block title %}Operations list{% endblock %}
+{% block body %}
+
+			    <ul class="nav nav-tabs">
+			  <li class="nav-item">
+			    <a class="nav-link active" aria-current="page" href="#">Active</a>
+			  </li>
+			  <li class="nav-item">
+			    <a class="nav-link" href="/dashboard">Home</a>
+			  </li>
+			  {#<li class="nav-item">
+			    <a class="nav-link" href="#">Link</a>#}
+			  </li>
+			  </ul>
+
+  <div class="container">
+	 <header>
+	    <div class="w-4/5 m-auto text-center">
+	      <h1>Operations list</h1>
+	     </div>
+	    </header>
+      <p> There are {{ caisses.getTotalItemCount }} operations in total</p>
+			    <table class="table table-success table-striped" style="width:80%">
+			        <thead>
+			            <tr>
+			                <th>Id</th>
+			                <th>Amount</th>
+			                <th> New account balance</th>
+			                <th>Employee</th>
+			                <th>Category</th>
+			                <th>Date</th>
+			                <th>Created at</th>
+			                <th>Updated at</th>
+			                <th>Consult</th>
+			            </tr>
+			        </thead>
+			        <tbody>
+			        {% for caisse in caisses %}
+			            <tr>
+			                <td>{{ caisse.id }}</td>
+			                <td>{{ caisse.montant }}</td>
+			                <td>{{ caisse.balance }}</td>
+			                <td>{{ caisse.employe }}</td>
+			                <td>{{ caisse.category }}</td>
+			                <td>{{ caisse.date ? caisse.date|date('d-m-Y') : ''  }}</td>
+			                <td>{{ caisse.createdAt ? caisse.createdAt|date('d-m-Y H:i:s') : ''  }}</td>
+			                <td>{{ caisse.updatedAt ? caisse.updatedAt|date('d-m-Y H:i:s') : '' }}</td>
+			                <td>
+			                    <a href="{{ path('app_caisse_show', {'id': caisse.id}) }}" class="link-success">show this specific cash register</a>
+			                </td>
+			            </tr>                   
+			        {% else %}
+			            <tr>
+			                <td colspan="6">no records found</td>
+			            </tr>
+			        {% endfor %}
+			        </tbody>
+			    </table>
+    </div>
+    <div class="p-3 mb-2 bg-light text-dark">{{knp_pagination_render(caisses)}}</div>
+      
+{% endblock %}

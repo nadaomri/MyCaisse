@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cash register{% endblock %}
+  
+
+
+{% block body %}
+    
+                <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Active</a>
+          </li>
+          {#<li class="nav-item">
+            <a class="nav-link" href="/caisse">Back to list</a>
+          </li>#}
+          <a class="nav-link" href="{{ path('app_caisse_edit', {'id': caisse.id}) }}">Edit</a>
+          </li>
+        
+          <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Dropdown
+                              </a>
+                              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{{ path('app_caisse_index')}}">Detailed operations</a></li>
+                                <li><a class="dropdown-item" href="{{ path('app_caisse_list') }}">Total List</a></li>
+                                {#<li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>#}
+                              </ul>
+                            </li>
+          <li class="nav-item">
+          {% if is_granted('ROLE_ADMIN') %}
+          <li class="nav-item">
+             {{ include('caisse/_delete_form.html.twig') }}
+          </li>
+          {% endif %}
+          
+        </ul>
+ 
+        <div class="mx-auto" style="width: 200px;">
+            <h1>Caisse</h1>
+        </div>
+
+
+    <table class="table table-striped">
+     
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ caisse.id }}</td>
+            </tr>
+            <tr>
+                <th>Balance</th>
+                <td>{{ caisse.balance}}</td>
+            </tr>
+            <tr>
+                <th>Amount</th>
+                <td>{{ caisse.montant }}</td>
+            </tr>
+            <tr>
+                <th>Employee</th>
+                <td>{{ caisse.employe }}</td>
+            </tr>
+            <tr>
+                <th>Category</th>
+                <td>{{ caisse.category }}</td>
+            </tr>
+            <tr>
+                <th>Created At</th>
+                <td>{{ caisse.createdAt ? caisse.createdAt|date('d-m-Y H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Updated At</th>
+                <td>{{ caisse.updatedAt ? caisse.updatedAt|date('d-m-Y H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block body %}
+
+    <style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the header */
+header {
+  background-color: #F28A90;
+  padding: 60px;
+  text-align: center;
+  font-size: 35px;
+  color: white;
+}
+
+/* Create two columns/boxes that floats next to each other */
+nav {
+  float: left;
+  width: 30%;
+  height: 300px; /* only for demonstration, should be removed */
+  background: #ccc;
+  padding: 20px;
+}
+
+/* Style the list inside the menu */
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+article {
+  float: left;
+  padding: 50px;
+  width: 70%;
+  background-color: #f1f1f1;
+  height: 300px; /* only for demonstration, should be removed */
+}
+
+/* Clear floats after the columns */
+section::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Style the footer */
+footer {
+  background-color: #DD6b7F;
+  padding: 60px;
+  text-align: center;
+  color: white;
+}
+
+/* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+@media (max-width: 600px) {
+  nav, article {
+    width: 100%;
+    height: auto;
+  }
+}
+</style>
+      <header>
+    <h1>Welcome</h1>
+  </header>
+  <section>
+    <nav>
+      <ul>
+        <p>Press the links for more details</p>
+        <li><a href="{{ path('app_caisse_alim')}}" class="link-success">New supply</a></li>
+        <li><a href="{{ path('app_caisse_new')}}" class="link-danger">New spending</a></li>
+        <li><a href="{{ path('app_caisse_list')}}" class="link-dark">Operations list</a></li>
+        <li><a href="{{ path('app_caisse_index')}}" class="link-primary">Detailed operations</a></li>
+      </ul>
+    </nav>
+  
+    <article>
+      <h1>Cash register</h1>
+      <p>Welcome to the dashboard !  </p>
+      {{include('fragments/date-jour.html.twig')}}
+    </article>
+  </section>
+
+<footer>
+  <div class="mb-3">
+             
+            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}" class="link-dark">Logout</a>
+        </div>
+</footer>
+{% endblock %}
